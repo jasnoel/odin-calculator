@@ -30,6 +30,9 @@ const operate = (operator, a, b) => {
 }
 
 let operation = "";
+let firstNumber = null;
+let secondNumber = null;
+let operator = '';
 
 const display = document.querySelector('.display');
 
@@ -39,4 +42,22 @@ buttons.forEach(button => {
             operation += e.target.classList[0];
             display.textContent = operation;
         });
+});
+
+const operators = document.querySelectorAll('.operators button');
+operators.forEach(operator => {
+    operator.addEventListener('click', (e) => {
+        if (!firstNumber) {
+            operator = e.target.classList[0]
+            firstNumber = operation.split(operator)[0];
+            console.log(firstNumber + ' ' + operator);
+        } else {
+            secondNumber = operation.split(operator)[1];
+            let result = operate(operator, firstNumber, secondNumber);
+            firstNumber = result;
+            operator = e.target.classList[0];
+            operation = `${firstNumber}${operator}`;
+            display.textContent = operation;
+        }
+    });
 });
