@@ -1,3 +1,56 @@
-h1 {
-    background-color: red;
+* {
+    box-sizing: border-box;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    font-family: Roboto;
+}
+
+button {
+    min-width: 75px;
+    min-height: 75px;
+    font-size: 2rem;
+    border: none;
+    border-radius: 15px;
+    margin: 5px;
+}
+
+.calculator {
+    display: flex;
+    width: 450px;
+    flex-direction: column;
+    background-color: rgb(195, 195, 195);
+    margin: 50px auto;
+    border-radius: 15px;
+    padding: 50px;
+}
+
+.display {
+    height: 50px;
+    background-color: rgb(255, 255, 255);
+    font-size: 1.5rem;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+}
+
+.numbers {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+}
+
+.numbers div {
+    display: flex;
+    justify-content: space-around;
+}
+
+.operators {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
