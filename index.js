@@ -56,13 +56,20 @@ let operation = {
                 this.text += value;
                 this.display();
             }
-        } else if (value == '-') {  //problem if you do 7-7-7
+        } else if (value == '-') {
             this.text += value;
             this.display();
             if (!this.firstNumber) {
                 this.firstNumber = '-';
             } else {
-                this.operator = value;
+                if (!this.operator) {
+                    this.operator = value;
+                } else {
+                    this.operate();
+                    this.operator = value;
+                    this.text += value;
+                    this.display();
+                }
             }
         } else {
             if (!this.operator) {
