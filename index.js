@@ -1,29 +1,29 @@
 const add = (a, b) => {
-    return parseInt(a) + parseInt(b);
+    return parseFloat(a) + parseFloat(b);
 }
 
 const subtract = (a, b) => {
-    return parseInt(a) - parseInt(b);
+    return parseFloat(a) - parseFloat(b);
 }
 
 const multiply = (a, b) => {
-    return parseInt(a) * parseInt(b);
+    return parseFloat(a) * parseFloat(b);
 }
 
 const divide = (a, b) => {
-    return parseInt(a) / parseInt(b);
+    return parseFloat(a) / parseFloat(b);
 }
 
 const reallyOperate = (operator, a, b) => {
     switch (operator) {
         case '+':
-          return add(a, b);
+          return Math.round(add(a, b) * 100) / 100;
         case '-':
-            return subtract(a, b);
+            return Math.round(subtract(a, b) * 100) / 100;
         case '*':
-            return multiply(a, b);
+            return Math.round(multiply(a, b) * 100) / 100;
         case '/':
-            return divide(a, b);
+            return Math.round(divide(a, b) * 100) / 100;
         default:
             return `Error wrong operator: ${operator} isn't supported`;
     }
@@ -56,7 +56,7 @@ let operation = {
                 this.text += value;
                 this.display();
             }
-        } else if (value == '-') {
+        } else if (value == '-') {  //problem if you do 7-7-7
             this.text += value;
             this.display();
             if (!this.firstNumber) {
@@ -67,11 +67,11 @@ let operation = {
         } else {
             if (!this.operator) {
                 this.text += value;
-                this.firstNumber = parseInt(this.text);
+                this.firstNumber = parseFloat(this.text);
                 this.display();
             } else {
                 this.text += value;
-                this.secondNumber = parseInt((this.secondNumber || '') + '' + value);
+                this.secondNumber = parseFloat((this.secondNumber || '') + '' + value);
                 this.display();
             }
         }
@@ -99,27 +99,3 @@ buttons.forEach(button => {
             operation.display();
         });
 });
-
-
-/*
-if (value == 'AC') {
-    return this.resetOperation();
-}
-this.text += value;
-// if (value == '=') {
-//     this.firstNumber = this.text.split(this.operator)[0];
-//     this.secondNumber = this.text.split(this.operator)[1];
-//     let result = operate(this.operator, this.firstNumber, this.secondNumber);
-//     this.addText(result);
-//     this.firstNumber = result;
-//     this.secondNumber = null;
-//     this.operator = '';
-// }
-if (value == '+' || value == '-' || value == '*' || value == '/') {
-    this.operator = value;
-    if (!this.firstNumber) {
-        this.firstNumber == this.text.split(this.operator)[0];
-    } else {
-        this.operate();
-    }
-}*/
