@@ -36,6 +36,7 @@ let operation = {
     firstNumber: null,
     secondNumber: null,
     operator: '',
+    dot: false,
     display() {
         displayDiv.textContent = this.text;
     },
@@ -75,19 +76,32 @@ let operation = {
             if (!this.operator) {
                 this.text += value;
                 this.firstNumber = parseFloat(this.text);
+                if (!(this.firstNumber % 1)) {     //managing . btn
+                    dot.classList.remove("unallowed");
+                }
                 this.display();
             } else {
                 this.text += value;
+                if (this.dot) {
+                    value = '.' + value;
+                    this.dot = false;
+                }
+                if (value == '.') {
+                    this.dot = true;
+                }
                 this.secondNumber = parseFloat((this.secondNumber || '') + '' + value);
+                if (!(this.secondNumber % 1)) {    //managing . btn
+                    dot.classList.remove("unallowed");
+                }
                 this.display();
             }
         }
     },
     operate() {
-        console.log(this.firstNumber + this.operator + this.secondNumber);
         this.firstNumber = reallyOperate(this.operator, this.firstNumber, this.secondNumber);
         this.operator = '';
         this.secondNumber = null;
+        dot.classList.add("unallowed");
         this.text = this.firstNumber;
     },
     resetOperation() {
@@ -95,14 +109,30 @@ let operation = {
         this.firstNumber = null;
         this.secondNumber = null;
         this.operator = '';
+        dot.classList.add("unallowed");
         this.display();
     }
 };
 
 const buttons = Array.from(document.querySelectorAll('button'));
 buttons.forEach(button => {
-    button.addEventListener('click', (e) => {
+    if (button.classList[0] != 'dot') {
+        button.addEventListener('click', (e) => {
             operation.addText(e.target.classList[0]);
             operation.display();
         });
+    }
 });
+
+const dot = document.querySelector('.dot');
+dot.addEventListener('click', () => {
+    if (!operation.secondNumber && operation.firstNumber && !(operation.firstNumber % 1)) {
+        operation.addText('.');
+        operation.display();
+        dot.classList.add("unallowed");
+    } else if (operation.secondNumber && !(operation.secondNumber % 1)) {
+        operation.addText('.');
+        operation.display();
+        dot.classList.add("unallowed");
+    }
+})
