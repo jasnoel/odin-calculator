@@ -98,7 +98,12 @@ let operation = {
         }
     },
     operate() {
-        this.firstNumber = reallyOperate(this.operator, this.firstNumber, this.secondNumber);
+        if (!this.firstNumber) {
+            this.text = "You didn't enter any number yet"
+            return
+        } else if (this.secondNumber){
+            this.firstNumber = reallyOperate(this.operator, this.firstNumber, this.secondNumber);
+        }
         this.operator = '';
         this.secondNumber = null;
         dot.classList.add("unallowed");
